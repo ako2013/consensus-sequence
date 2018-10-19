@@ -9,8 +9,13 @@ public class main {
 		data.insert("dog", "agctacgtagcc");
 		data.insert("cat", "aaccggttggaa");
 
-		Consensus seq = new Consensus(data, data.getSequenceSize());
-		//seq.printMatrix();
+		ConsensusMatrix m = new ConsensusMatrix(data, data.getSequenceSize());
+		
+		ConsensusSeq seq = new ConsensusSeq(m.getMatrix(), m.getLength());
+		
+		seq.printMatrix();
+		seq.printSequence();
+
 
 	}
 
