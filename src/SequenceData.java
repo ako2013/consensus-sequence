@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set; 
 
-public class SequenceData {
+public class SequenceData implements SeqDataInterface{
 	
 	private HashMap<String,String> map;;
 	
@@ -64,5 +64,4 @@ public class SequenceData {
 		Map.Entry<String,String> entry = this.map.entrySet().iterator().next(); //get first entry 
 		return entry.getValue().length();
 	}
-	
 }
