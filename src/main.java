@@ -10,10 +10,9 @@ public class main {
 		data.insert("cat", "aaccggttggaa");
 
 		ConsensusMatrix m = new ConsensusMatrix(data, data.getSequenceSize());
-		
 		ConsensusSeq seq = new ConsensusSeq(m.getMatrix(), m.getLength());
 		
-		seq.printMatrix();
+		m.printMatrix();
 		seq.printSequence();
 
 	}

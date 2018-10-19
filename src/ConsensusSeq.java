@@ -2,28 +2,16 @@ public class ConsensusSeq extends Consensus {
 
 	private String consensusSeq;
 	
-	//Constructor
+	/**
+	 * Constructor
+	 * @param m takes in a matrix array
+	 * @param len takes in the length of the dna string
+	 */
 	public ConsensusSeq(int[][] m, int len){
 		super(len);
 		this.matrix = m;
-		this.length = len;
 		this.buildConsesus();
 		
-	}
-	
-	public void printMatrix(){
-		for(int i = 0; i< MAX_ROW;i++){
-			
-			if(i == 0) System.out.print("A| ");
-			else if(i == 1) System.out.print("T| ");
-			else if(i == 2) System.out.print("C| ");
-			else System.out.print("G| ");
-			
-			for(int y = 0; y < this.length; y++){				
-				System.out.print(matrix[i][y]);
-			}
-			System.out.println();
-		}
 	}
 	
 	private void buildConsesus(){
@@ -41,7 +29,7 @@ public class ConsensusSeq extends Consensus {
 			else if(matrix[C_ROW][i] == largest) this.consensusSeq += "C";
 			else this.consensusSeq += "G";
 ;		}
-		//System.out.println("CS:"+ this.consensusSeq);
+		System.out.println("Calculating consensus sequence ... Done");
 	}
 	
 	public String getSequence() { return this.consensusSeq; }
