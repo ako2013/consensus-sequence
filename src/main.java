@@ -16,7 +16,6 @@ public class main {
 		seq.printMatrix();
 		seq.printSequence();
 
-
 	}
 
 }

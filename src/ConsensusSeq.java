@@ -1,12 +1,11 @@
-public class ConsensusSeq implements ConsensusInterface{
-	
+public class ConsensusSeq extends Consensus {
+
 	private String consensusSeq;
-	private int[][] matrix;
-	private int length;
 	
 	//Constructor
-	public ConsensusSeq(int[][] matrix, int len){
-		this.matrix = matrix;
+	public ConsensusSeq(int[][] m, int len){
+		super(len);
+		this.matrix = m;
 		this.length = len;
 		this.buildConsesus();
 		

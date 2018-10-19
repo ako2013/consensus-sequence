@@ -1,11 +1,9 @@
-
-public class ConsensusMatrix implements ConsensusInterface{
+public class ConsensusMatrix extends Consensus {
 	
-	private int[][] matrix;
 	private SequenceData myData;
-	private int length; // string length of the sequence
 	
 	public ConsensusMatrix(SequenceData d, int len) {
+		super(len);
 		this.myData = d;
 		this.length = len;
 		this.matrix = new int[MAX_ROW][this.length];
