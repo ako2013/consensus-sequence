@@ -23,7 +23,7 @@ public class InputValidator {
 	}
 	
 	//check if the input format is correct and the sequence length is equal
-	public int validateData() {
+	public int checkInput() {
 		String[] words;
 		this.scan = new Scanner(this.str);
 		

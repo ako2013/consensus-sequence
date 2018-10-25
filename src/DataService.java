@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class DataService {
 	
+	InputValidator validator;
 	SequenceData data;
 	ConsensusMatrix m;
 	ConsensusSeq seq;
@@ -9,6 +10,16 @@ public class DataService {
 	
 	public DataService() {
 		data = new SequenceData();
+	}
+	
+	public boolean validateData(String s) {
+		validator = new InputValidator(s);
+		if(validator.checkInput() == 0) return true; //return true if the data is validated
+		return false;
+	}
+	
+	public String getValidateError() {
+		return validator.getErrorDef();
 	}
 	
 	public void insertData(String s) {
@@ -19,8 +30,6 @@ public class DataService {
 
 		while(scan.hasNextLine()) {
 			words = scan.nextLine().split(" ");
-			//System.out.println("NAME: "+words[ITEM_NAME]);
-			//System.out.println("SEQ: "+words[ITEM_SEQ]);
 			data.insert(words[ITEM_NAME], words[ITEM_SEQ]);
 		}
 		

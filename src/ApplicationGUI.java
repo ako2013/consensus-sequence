@@ -21,7 +21,6 @@ public class ApplicationGUI {
 	private final static int FRAME_HEIGHT = 500;
 	
 	private JFrame frame;
-	private String seq;
 	private DataService dataService;
 	
 
@@ -76,11 +75,9 @@ public class ApplicationGUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String s = inputText.getText();
-				InputValidator validator = new InputValidator(s);
-				if(!(validator.validateData() == 0))  System.out.println(validator.getErrorDef());
-				else {
-					dataService.insertData(s);
-				}
+				
+				if(dataService.validateData(s)) dataService.insertData(s);
+				else System.out.println(dataService.getValidateError());
 				frame.revalidate();
 				frame.repaint();
 			}});
