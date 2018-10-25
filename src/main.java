@@ -12,10 +12,10 @@ public class main {
 		// creating matrix from data
 		ConsensusMatrix m = new ConsensusMatrix(data, data.getSequenceSize());
 		// build consensus sequence from matrix
-		//ConsensusSeq seq = new ConsensusSeq(m.getMatrix(), m.getLength());
+		ConsensusSeq seq = new ConsensusSeq(m.getMatrix(), m.getLength());
 
-		//m.printMatrix();
-		//seq.printSequence();
+		m.printMatrix();
+		seq.printSequence();
 		
 		//ApplicationGUI window = new ApplicationGUI();
 
