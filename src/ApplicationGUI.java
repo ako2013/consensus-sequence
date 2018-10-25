@@ -43,12 +43,16 @@ public class ApplicationGUI {
 		frame.add(leftPanel);
 		
 		//left label
-		JLabel leftLable = new JLabel("Enter your sequences");
+		JLabel leftLable = new JLabel("Enter your sequences (name + sequece)");
 		leftLable.setBounds(0, 0, leftPanel.getWidth(), leftPanel.getY());
 		frame.add(leftLable);
 		
 		//left text area
-		JTextArea inputText = new JTextArea();
+		JTextArea inputText = new JTextArea("[separate items by new lines] \n"
+				+ "[Sequences must have the same length]\n"
+				+ "Example: \n"
+				+ "human atcatcatc \n"
+				+ "cat attccgg");
 		//create scroll for input area
 		JScrollPane inputBoxScroll = new JScrollPane(
 				inputText,

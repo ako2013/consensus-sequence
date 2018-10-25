@@ -17,7 +17,7 @@ public class main {
 		m.printMatrix();
 		seq.printSequence();
 		
-		ApplicationGUI window = new ApplicationGUI();
+		//ApplicationGUI window = new ApplicationGUI();
 
 	}
 
