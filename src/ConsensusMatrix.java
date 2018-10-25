@@ -24,7 +24,7 @@ public class ConsensusMatrix extends Consensus {
 		for (String item : myData.getKeys()) {
 
 			String s = myData.getSequence(item);
-			System.out.println(item + " " + s);
+			System.out.println(item + " - " + s);
 
 			for (int i = 0; i < this.length; i++) {
 				// System.out.println(i);
