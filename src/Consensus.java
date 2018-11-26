@@ -9,10 +9,11 @@ public class Consensus {
 
 	protected int[][] matrix;
 	protected int length;
+	protected ResidueColumn[] residueCols;
 
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param len takes in the length of the dna string
 	 */
 	public Consensus(int len) {

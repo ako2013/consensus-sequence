@@ -16,10 +16,10 @@ public class SequenceData implements SeqDataInterface {
 
 	/**
 	 * This method insert name and sequence into HashMap.
-	 * 
+	 *
 	 * @param n   takes in name of where this dna string from
 	 * @param seq takes in dna sequence
-	 * 
+	 *
 	 */
 	public void insert(String n, String seq) {
 		seq = seq.toUpperCase();
@@ -28,9 +28,9 @@ public class SequenceData implements SeqDataInterface {
 
 	/**
 	 * This method delete the key and value of given key. In this case is the name
-	 * 
+	 *
 	 * @param n takes in the key's name
-	 * 
+	 *
 	 */
 	public void delete(String n) {
 		if (this.map.containsKey(n))
@@ -41,9 +41,9 @@ public class SequenceData implements SeqDataInterface {
 
 	/**
 	 * This method find a sequence with given name.
-	 * 
+	 *
 	 * @param n takes in key's name
-	 * 
+	 *
 	 */
 	public String getSequence(String n) {
 		if (this.map.containsKey(n))
@@ -54,7 +54,7 @@ public class SequenceData implements SeqDataInterface {
 
 	/**
 	 * This method returns all the names in the data.
-	 * 
+	 *
 	 * @return all keys in the HashMap
 	 */
 	public Set<String> getKeys() {
@@ -72,11 +72,15 @@ public class SequenceData implements SeqDataInterface {
 	/**
 	 * This method return the size of dna's length by getting the first dna sequence
 	 * and check its length.
-	 * 
+	 *
 	 * @return size of the dna
 	 */
 	public int getSequenceSize() {
 		Map.Entry<String, String> entry = this.map.entrySet().iterator().next(); // get first entry
 		return entry.getValue().length();
+	}
+
+	public int getNumberOfSequences(){
+		return this.map.size();
 	}
 }

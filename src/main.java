@@ -7,17 +7,18 @@ public class main {
 
 		data.insert("human", "agtcagtcagtc");
 		data.insert("dog", "agctacgtagcc");
-		data.insert("cat", "aaccggttggaa");
+		data.insert("cat", "aaccggtaggaa");
+		data.insert("rat", "aaccagtcgggt");
 
 		// creating matrix from data
 		ConsensusMatrix m = new ConsensusMatrix(data, data.getSequenceSize());
-		// build consensus sequence from matrix
-		ConsensusSeq seq = new ConsensusSeq(m.getMatrix(), m.getLength());
-
 		m.printMatrix();
+		// build consensus sequence from matrix
+		ConsensusSeq seq = new ConsensusSeq(m.getMatrix(), m.getLength(), m.getResidueCols());
 		seq.printSequence();
-		
-		//ApplicationGUI window = new ApplicationGUI();
+		seq.printRCSequence();
+
+		//ApplicationGUI window = new ApplicationGUI(seq.getSequence());
 
 	}
 
