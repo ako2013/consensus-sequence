@@ -12,7 +12,7 @@ public class DataService {
 		data = new SequenceData();
 	}
 	
-	public boolean validateData(String s) {
+	public boolean isValidData(String s) {
 		validator = new InputValidator(s);
 		if(validator.checkInput() == 0) return true; //return true if the data is validated
 		return false;
@@ -34,9 +34,9 @@ public class DataService {
 		}
 		
 		// creating matrix from data
-		ConsensusMatrix m = new ConsensusMatrix(data, data.getSequenceSize());
+		m = new ConsensusMatrix(data, data.getSequenceSize());
 		// build consensus sequence from matrix
-		ConsensusSeq seq = new ConsensusSeq(m.getMatrix(), m.getLength());
+		seq = new ConsensusSeq(m.getMatrix(), m.getLength());
 		m.printMatrix();
 		seq.printSequence();
 	}

@@ -8,17 +8,20 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.Scanner;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;  
+import javax.swing.JTextArea;
+import javax.swing.border.Border;  
 
 public class ApplicationGUI {
 	
 	private final static int FRAME_WIDTH = 600;
 	private final static int FRAME_HEIGHT = 500;
+	private final static int LEFT_PANEL_YCOORD = 50;
 	
 	private JFrame frame;
 	private DataService dataService;
@@ -35,10 +38,8 @@ public class ApplicationGUI {
 	private void initWindow() {
 		
 		//left panel
-		int leftPanelYCoord = 50;
-		
 		JPanel leftPanel = new JPanel();
-		leftPanel.setBounds(0,leftPanelYCoord, FRAME_WIDTH/2, FRAME_HEIGHT);
+		leftPanel.setBounds(0,LEFT_PANEL_YCOORD, FRAME_WIDTH/2, FRAME_HEIGHT);
 		leftPanel.setBackground(Color.GRAY);
 		frame.add(leftPanel);
 		
@@ -61,7 +62,10 @@ public class ApplicationGUI {
 				);
 		inputBoxScroll.setMinimumSize(new Dimension(leftPanel.getWidth(),leftPanel.getHeight()));
 		inputBoxScroll.setPreferredSize(new Dimension(leftPanel.getWidth(),leftPanel.getHeight()-80));
-		
+		//create border
+		Border border = BorderFactory.createLineBorder(Color.BLACK);
+	    inputText.setBorder(BorderFactory.createCompoundBorder(border,
+	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		//doesn't need to add inputText as already included in inputBoxScroll
 		leftPanel.add(inputBoxScroll);
 		
@@ -80,7 +84,7 @@ public class ApplicationGUI {
 			public void actionPerformed(ActionEvent e) {
 				String s = inputText.getText();
 				
-				if(dataService.validateData(s)) dataService.insertData(s);
+				if(dataService.isValidData(s)) dataService.insertData(s);
 				else System.out.println(dataService.getValidateError());
 				frame.revalidate();
 				frame.repaint();
