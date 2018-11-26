@@ -16,9 +16,14 @@ public class main {
 		// build consensus sequence from matrix
 		ConsensusSeq seq = new ConsensusSeq(m.getMatrix(), m.getLength(), m.getResidueCols());
 		seq.printSequence();
+<<<<<<< HEAD
 		seq.printRCSequence();
 
 		//ApplicationGUI window = new ApplicationGUI(seq.getSequence());
+=======
+		
+		ApplicationGUI window = new ApplicationGUI();
+>>>>>>> e940fa140d362945123f5ec2390d0305ac069dcd
 
 	}
 
