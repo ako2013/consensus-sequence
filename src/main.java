@@ -5,7 +5,7 @@ public class main {
 		
 		SequenceData data = new SequenceData(); // build data storage
 
-		data.insert("human", "agtctgtctgtc");
+		data.insert("human", "agtctgtcgtc");
 		data.insert("dog", 	 "agctacgtagcc");
 		data.insert("cat",   "agccggtaggaa");
 		data.insert("rat",   "agcccgtcgggt");
@@ -24,9 +24,7 @@ public class main {
 		//m.buildPWM();
 		//m.printMatrix();
 		
-		PositionWeightMatrix m2 = new PositionWeightMatrix(m.getMatrix(),
-														   m.getLength(),
-														   data.getNumberOfSequences());
+		PositionWeightMatrix m2 = new PositionWeightMatrix(m.getMatrix(),m.getLength(),data.getNumberOfSequences());
 		
 		//ApplicationGUI window = new ApplicationGUI(seq.getSequence());		
 		//ApplicationGUI window = new ApplicationGUI();
