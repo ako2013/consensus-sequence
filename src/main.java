@@ -15,7 +15,10 @@ public class main {
 		
 		// creating matrix from data
 		ConsensusMatrix m = new ConsensusMatrix(data, data.getSequenceSize());
+		System.out.println("Length: "+m.getLength());
+
 		m.printMatrix();
+
 		// build consensus sequence from matrix
 		ConsensusSeq seq = new ConsensusSeq(m.getMatrix(), m.getLength());
 		seq.printSequence();
@@ -25,7 +28,9 @@ public class main {
 				
 		PositionWeightMatrix pwm = new PositionWeightMatrix(m.getMatrix(),m.getLength(),data.getNumberOfSequences());
 		pwm.printMatrix(1);
-		//pwm.printMatrix(2);
+		pwm.printMatrix(2);
+		
+		System.out.println(pwm.calcScore("tgtctgtcgcgt"));
 		
 		
 		//ApplicationGUI window = new ApplicationGUI();

@@ -21,7 +21,6 @@ public class ConsensusMatrix extends Consensus {
 	 * Method to build frequency matrix
 	 */
 	private void buildMatrix() {
-		System.out.println("Frequency Matrix: ");
 		for (String item : myData.getKeys()) {
 
 			String s = myData.getSequence(item);
@@ -50,6 +49,7 @@ public class ConsensusMatrix extends Consensus {
 	}
 
 	public void printMatrix() {
+		System.out.println("Frequency Matrix: ");
 		for (int i = 0; i < MAX_ROW; i++) { // max row = 4
 			if (i == 0){
 				System.out.print("A| ");

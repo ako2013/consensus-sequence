@@ -21,24 +21,18 @@ public class PositionWeightMatrix extends Consensus{
 	
 	private void buildMatrix() {
 		for(int row = 0; row < MAX_ROW; row++) {
-			double freqSum = this.findSumUsingStream(this.matrix[row]);
 			for(int i = 0; i < this.length; i++) {
-				double odd = (double)this.matrix[row][i] / this.dataLength * 100;
+				double odd = (double)this.matrix[row][i] / this.dataLength;
 				this.positionWeightMatrix[row][i] = 
 						this.round(
 								//odd
-								this.log2(odd/freqSum)
+								this.log2(odd/0.25)
 								,2);
 				this.positionProbabilityMatrix[row][i] = odd;
 			}
 		}
 	}
 	
-	// helper method to find the sum of a motif in a sequence
-	// author: https://www.baeldung.com/java-array-sum-average
-	private int findSumUsingStream(int[] array) {
-	    return Arrays.stream(array).sum();
-	}
 	// helper method to round double to n places
 	// author: https://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
 	private double round(double value, int places) {
@@ -59,10 +53,15 @@ public class PositionWeightMatrix extends Consensus{
 	
 	// this method calculate score of input seq based on PWM scores
 	public double calcScore(String seq) {
-		
-		
-		
-		return 0.0;
+		seq = seq.toUpperCase();
+		double score = 0.0;
+		for(int pos = 0; pos < seq.length(); pos++) {
+			if(seq.charAt(pos) == 'A') score += this.positionWeightMatrix[A_ROW][pos];
+			else if(seq.charAt(pos) == 'T') score += this.positionWeightMatrix[T_ROW][pos];
+			else if(seq.charAt(pos) == 'C') score += this.positionWeightMatrix[C_ROW][pos];
+			else if(seq.charAt(pos) == 'G') score += this.positionWeightMatrix[G_ROW][pos];
+		}
+		return this.round(score,2);
 	}
 	
 	public void printMatrix(int type) {

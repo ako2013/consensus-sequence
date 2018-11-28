@@ -35,10 +35,10 @@ public class ResidueSeq extends Consensus {
 			if(noneZeroList.size() == 2) {
 				this.residueSequence += "[";
 				for(Integer item : noneZeroList) {
-					if(item == 0) this.residueSequence += "A";
-					if(item == 1) this.residueSequence += "T";
-					if(item == 2) this.residueSequence += "C";
-					if(item == 3) this.residueSequence += "G";	
+					if(item == A_ROW) this.residueSequence += "A";
+					if(item == T_ROW) this.residueSequence += "T";
+					if(item == C_ROW) this.residueSequence += "C";
+					if(item == G_ROW) this.residueSequence += "G";	
 				}
 				this.residueSequence += "] ";
 			}
@@ -46,10 +46,10 @@ public class ResidueSeq extends Consensus {
 			//when only one motif is 0
 			else if(noneZeroList.size() == 3) {
 				this.residueSequence += "{";
-				if(!noneZeroList.contains(0)) this.residueSequence += "A";
-				else if(!noneZeroList.contains(1)) this.residueSequence += "T";
-				else if(!noneZeroList.contains(2)) this.residueSequence += "C";
-				else if(!noneZeroList.contains(3)) this.residueSequence += "G";
+				if(!noneZeroList.contains(A_ROW)) this.residueSequence += "A";
+				else if(!noneZeroList.contains(T_ROW)) this.residueSequence += "T";
+				else if(!noneZeroList.contains(C_ROW)) this.residueSequence += "C";
+				else if(!noneZeroList.contains(G_ROW)) this.residueSequence += "G";
 				this.residueSequence += "} ";
 			}
 			
