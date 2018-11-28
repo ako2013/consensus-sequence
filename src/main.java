@@ -2,9 +2,9 @@
 public class main {
 
 	public static void main(String[] args) {
-		
+		/*
 		SequenceData data = new SequenceData(); // build data storage
-
+		
 		data.insert("human", "agtctgtcgtct");
 		data.insert("dog", 	 "agctacgtagcc");
 		data.insert("cat",   "agccggtaggaa");
@@ -31,7 +31,7 @@ public class main {
 		pwm.printMatrix(2);
 		
 		System.out.println(pwm.calcScore("tgtctgtcgcgt"));
-		
+		*/
 		
 		ApplicationGUI window = new ApplicationGUI();
 	}

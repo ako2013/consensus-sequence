@@ -84,8 +84,12 @@ public class ApplicationGUI {
 			public void actionPerformed(ActionEvent e) {
 				String s = inputText.getText();
 				
-				if(dataService.isValidData(s)) dataService.insertData(s);
+				if(dataService.isValidData(s)) {
+					dataService.insertData(s);
+					dataService.generateData();
+				}
 				else System.out.println(dataService.getValidateError());
+				
 				frame.revalidate();
 				frame.repaint();
 			}});

@@ -5,7 +5,9 @@ public class DataService {
 	InputValidator validator;
 	SequenceData data;
 	ConsensusMatrix m;
-	ConsensusSeq seq;
+	ConsensusSeq consenSeq;
+	ResidueSeq resiSeq;
+	PositionWeightMatrix pwm;
 	Scanner scan;
 	
 	public DataService() {
@@ -33,5 +35,19 @@ public class DataService {
 			data.insert(words[ITEM_NAME], words[ITEM_SEQ]);
 		}
 	}
+	
+	public void generateData() {
+		this.m = new ConsensusMatrix(this.data, this.data.getSequenceSize());
+		m.printMatrix();
+		consenSeq = new ConsensusSeq(m.getMatrix(), m.getLength());
+		consenSeq.printSequence();
+		resiSeq = new ResidueSeq(m.getMatrix(),m.length,data);
+		resiSeq.printResidueSequence();
+		pwm = new PositionWeightMatrix(m.getMatrix(),m.getLength(),data.getNumberOfSequences());
+		pwm.printMatrix(1);
+		pwm.printMatrix(2);
+	}
+	
+	public SequenceData getData() { return this.data; }
 	
 }
