@@ -10,7 +10,7 @@ public interface SeqDataInterface {
 
 	public Set<String> getKeys();
 
-	public void print();
+	public void printData();
 
 	public int getSequenceSize();
 }

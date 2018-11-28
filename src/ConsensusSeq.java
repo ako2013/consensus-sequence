@@ -28,9 +28,8 @@ public class ConsensusSeq extends Consensus {
 			else if(matrix[C_ROW][i] == largest) this.consensusSeq += "C";
 			else this.consensusSeq += "G";
 ;		}
-		System.out.println("Calculating consensus sequence ... Done");
 	}
 
 	public String getSequence() { return this.consensusSeq; }
-	public void printSequence() { System.out.println("CS:"+ this.consensusSeq); };
+	public void printSequence() { System.out.println("Consensus Sequence :\n"+ this.consensusSeq); };
 }

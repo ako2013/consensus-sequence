@@ -17,8 +17,6 @@ public class PositionWeightMatrix extends Consensus{
 		this.positionWeightMatrix = new double[MAX_ROW][this.length];
 		this.positionProbabilityMatrix = new double[MAX_ROW][this.length];
 		this.buildMatrix();
-		this.printMatrix(1);
-		this.printMatrix(2);
 	}
 	
 	private void buildMatrix() {
@@ -57,6 +55,14 @@ public class PositionWeightMatrix extends Consensus{
 		if (result == Double.POSITIVE_INFINITY) return 99.0;
 		else if(result == Double.NEGATIVE_INFINITY) return -99.0;
 		return result;
+	}
+	
+	// this method calculate score of input seq based on PWM scores
+	public double calcScore(String seq) {
+		
+		
+		
+		return 0.0;
 	}
 	
 	public void printMatrix(int type) {

@@ -21,10 +21,11 @@ public class ConsensusMatrix extends Consensus {
 	 * Method to build frequency matrix
 	 */
 	private void buildMatrix() {
+		System.out.println("Frequency Matrix: ");
 		for (String item : myData.getKeys()) {
 
 			String s = myData.getSequence(item);
-			System.out.println(item + " " + s);
+			//System.out.println(item + " " + s);
 
 			for (int i = 0; i < this.length; i++) {
 				char letter = s.charAt(i);
@@ -46,7 +47,6 @@ public class ConsensusMatrix extends Consensus {
 				}
 			}
 		}
-		System.out.println("Building matrix ... Done");
 	}
 
 	public void printMatrix() {

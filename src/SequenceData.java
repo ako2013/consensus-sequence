@@ -61,11 +61,15 @@ public class SequenceData implements SeqDataInterface {
 		return this.map.keySet();
 	}
 
-	public void print() {
+	public void printData() {
 		if (this.map.isEmpty())
 			System.out.println("Data is empty");
 		else {
-			System.out.println(map);
+			System.out.println("Your data set:");
+			for(String item: this.map.keySet()){
+				String s = this.map.get(item);
+			    System.out.println(item + "\t " + s);
+			}
 		}
 	}
 
