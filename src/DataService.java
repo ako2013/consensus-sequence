@@ -27,18 +27,11 @@ public class DataService {
 		final int ITEM_SEQ = 1;
 		String[] words;
 		scan = new Scanner(s);
-
+		
 		while(scan.hasNextLine()) {
 			words = scan.nextLine().split(" ");
 			data.insert(words[ITEM_NAME], words[ITEM_SEQ]);
 		}
-		
-		// creating matrix from data
-		m = new ConsensusMatrix(data, data.getSequenceSize());
-		// build consensus sequence from matrix
-		seq = new ConsensusSeq(m.getMatrix(), m.getLength());
-		m.printMatrix();
-		seq.printSequence();
 	}
 	
 }

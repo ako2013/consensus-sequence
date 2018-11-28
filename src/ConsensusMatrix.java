@@ -1,8 +1,6 @@
-import java.util.ArrayList;
 public class ConsensusMatrix extends Consensus {
 
 	private SequenceData myData;
-	private int numberOfSeq; // number of sequences for alignment
 
 	/**
 	 * Constructor
@@ -15,8 +13,6 @@ public class ConsensusMatrix extends Consensus {
 		this.myData = d;
 		this.matrix = new int[MAX_ROW][this.length];
 		this.buildMatrix();
-		numberOfSeq = d.getNumberOfSequences();
-		residueCols = new ResidueColumn[d.getSequenceSize()];
 	}
 
 	/*
@@ -31,7 +27,6 @@ public class ConsensusMatrix extends Consensus {
 			System.out.println(item + " " + s);
 
 			for (int i = 0; i < this.length; i++) {
-				// System.out.println(i);
 				char letter = s.charAt(i);
 				switch (letter) {
 				case 'A':
@@ -39,25 +34,23 @@ public class ConsensusMatrix extends Consensus {
 					break;
 				case 'T':
 					matrix[T_ROW][i] += 1;
-					;
 					break;
 				case 'C':
 					matrix[C_ROW][i] += 1;
-					;
 					break;
 				case 'G':
 					matrix[G_ROW][i] += 1;
-					;
 					break;
+				default:
+					System.out.println("Error in buildingMaxtrix");
 				}
 			}
 		}
 		System.out.println("Building matrix ... Done");
-		// this.printMatrix();
 	}
 
 	public void printMatrix() {
-		char residueLetter;
+		char residueLetter =' ';
 		for (int i = 0; i < MAX_ROW; i++) { // max row = 4
 			if (i == 0){
 				System.out.print("A| ");
@@ -74,16 +67,8 @@ public class ConsensusMatrix extends Consensus {
 			}
 
 			for (int y = 0; y < this.length; y++) { // length
-				if(residueCols[y] == null) residueCols[y] = new ResidueColumn();
 
 				int val = matrix[i][y];
-				if(val == numberOfSeq) {
-					residueCols[y].setIsConserved();
-					residueCols[y].setConservedLetter(residueLetter);
-				}
-				else if(val > 0) residueCols[y].setDifferences(residueLetter);
-				else residueCols[y].setMissedLetters(residueLetter);
-
 				System.out.print(val);
 			}
 			System.out.println();
