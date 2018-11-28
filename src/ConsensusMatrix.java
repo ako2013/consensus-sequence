@@ -50,20 +50,15 @@ public class ConsensusMatrix extends Consensus {
 	}
 
 	public void printMatrix() {
-		char residueLetter =' ';
 		for (int i = 0; i < MAX_ROW; i++) { // max row = 4
 			if (i == 0){
 				System.out.print("A| ");
-				residueLetter = 'A';
 			} else if (i == 1){
 				System.out.print("T| ");
-				residueLetter = 'T';
 			} else if (i == 2) {
 				System.out.print("C| ");
-				residueLetter = 'C';
 			} else {
 				System.out.print("G| ");
-				residueLetter = 'G';
 			}
 
 			for (int y = 0; y < this.length; y++) { // length
@@ -74,8 +69,6 @@ public class ConsensusMatrix extends Consensus {
 			System.out.println();
 		}
 	}
-
-	public ResidueColumn[] getResidueCols() { return this.residueCols; }
 
 	public int getLength() {
 		return this.length;

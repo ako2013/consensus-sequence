@@ -5,7 +5,7 @@ public class main {
 		
 		SequenceData data = new SequenceData(); // build data storage
 
-		data.insert("human", "agtcagtcagtc");
+		data.insert("human", "agtctgtctgtc");
 		data.insert("dog", 	 "agctacgtagcc");
 		data.insert("cat",   "agccggtaggaa");
 		data.insert("rat",   "agcccgtcgggt");
@@ -17,9 +17,17 @@ public class main {
 		// build consensus sequence from matrix
 		ConsensusSeq seq = new ConsensusSeq(m.getMatrix(), m.getLength());
 		seq.printSequence();
-
-		ResidueSeq r = new ResidueSeq(m.getMatrix(),m.length,data);
-		r.printResidueSequence();
+		// build residue sequence from matrix
+		//ResidueSeq r = new ResidueSeq(m.getMatrix(),m.length,data);
+		//r.printResidueSequence();
+		
+		//m.buildPWM();
+		//m.printMatrix();
+		
+		PositionWeightMatrix m2 = new PositionWeightMatrix(m.getMatrix(),
+														   m.getLength(),
+														   data.getNumberOfSequences());
+		
 		//ApplicationGUI window = new ApplicationGUI(seq.getSequence());		
 		//ApplicationGUI window = new ApplicationGUI();
 	}
