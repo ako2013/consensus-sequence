@@ -1,4 +1,13 @@
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.Scanner;
+
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -6,13 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.border.Border;
-
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.border.Border;  
 
 public class ApplicationGUI {
 	
@@ -20,41 +23,20 @@ public class ApplicationGUI {
 	private final static int FRAME_HEIGHT = 500;
 	private final static int LEFT_PANEL_YCOORD = 50;
 	
-	JFrame f;
-	final JTextField tf;
-	String seq;
 	private JFrame frame;
 	private DataService dataService;
 	
+
 	public ApplicationGUI() {
-		this.f = new JFrame();//creating instance of JFrame  
-		this.tf= new JTextField();
+		this.frame = new JFrame();//creating instance of JFrame  
+		//this.seq = s;
 		initWindow();
+		dataService = new DataService();
 	}
 	
 	//add simple elements to window
 	private void initWindow() {
-		JButton b=new JButton("click");//creating instance of JButton  
-		b.setBounds(130,100,100, 40);//x axis, y axis, width, height  
-		b.addActionListener(new ActionListener(){  
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				tf.setText(seq); 
-			}  
-		});
-		          
-		f.add(b);//adding button in JFrame  
-		          
-		f.setSize(400,500);//400 width and 500 height  
 		
-		tf.setBounds(50,50, 150,20); 
-		tf.setText(seq);
-		
-		f.add(tf);
-		
-		f.setLayout(null);//using no layout managers  
-		f.setVisible(true);//making the frame visible  
-
 		//left panel
 		JPanel leftPanel = new JPanel();
 		leftPanel.setBounds(0,LEFT_PANEL_YCOORD, FRAME_WIDTH/2, FRAME_HEIGHT);
@@ -106,6 +88,16 @@ public class ApplicationGUI {
 				else System.out.println(dataService.getValidateError());
 				frame.revalidate();
 				frame.repaint();
-			}});		
+			}});
+		
+		button.setBounds(100, 100, 100, 50);
+		rightPanel.add(button);
+		          
+		frame.setSize(FRAME_WIDTH,FRAME_HEIGHT);//600 width and 500 height  
+		
+		frame.setLayout(null);//using no layout managers  
+		frame.setVisible(true);//making the frame visible  	
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 	}
+	
 }

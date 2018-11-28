@@ -33,7 +33,7 @@ public class main {
 		System.out.println(pwm.calcScore("tgtctgtcgcgt"));
 		
 		
-		//ApplicationGUI window = new ApplicationGUI();
+		ApplicationGUI window = new ApplicationGUI();
 	}
 
 }
