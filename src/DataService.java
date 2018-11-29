@@ -38,16 +38,20 @@ public class DataService {
 	
 	public void generateData() {
 		this.m = new ConsensusMatrix(this.data, this.data.getSequenceSize());
-		m.printMatrix();
 		consenSeq = new ConsensusSeq(m.getMatrix(), m.getLength());
-		consenSeq.printSequence();
 		resiSeq = new ResidueSeq(m.getMatrix(),m.length,data);
-		resiSeq.printResidueSequence();
 		pwm = new PositionWeightMatrix(m.getMatrix(),m.getLength(),data.getNumberOfSequences());
-		pwm.printMatrix(1);
-		pwm.printMatrix(2);
 	}
 	
 	public SequenceData getData() { return this.data; }
 	
+	public String getConsesusSeq() { return this.consenSeq.getSequence(); }
+	
+	public String getFreqMatrix() { return this.m.toString(); }
+	
+	public String getResidueSeq() { return this.resiSeq.getSequence(); }
+	
+	public String getPWMatrix() { return this.pwm.getMatrix(1); }
+	
+	public String getPPMatrix() { return this.pwm.getMatrix(2); }
 }

@@ -69,6 +69,30 @@ public class ConsensusMatrix extends Consensus {
 			System.out.println();
 		}
 	}
+	@Override
+	public String toString() {
+		String s = "";
+		s += "Frequency Matrix: "+ System.lineSeparator();
+		for (int i = 0; i < MAX_ROW; i++) { // max row = 4
+			if (i == 0){
+				s += "A| ";
+			} else if (i == 1){
+				s += "T| ";
+			} else if (i == 2) {
+				s += "C| ";
+			} else {
+				s += "G| ";
+			}
+
+			for (int y = 0; y < this.length; y++) { // length
+
+				int val = matrix[i][y];
+				s += val;
+			}
+			s += System.lineSeparator();
+		}
+		return s;
+	}
 
 	public int getLength() {
 		return this.length;

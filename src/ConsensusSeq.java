@@ -30,6 +30,6 @@ public class ConsensusSeq extends Consensus {
 ;		}
 	}
 
-	public String getSequence() { return this.consensusSeq; }
+	public String getSequence() { return "Consensus Sequence :\n"+ this.consensusSeq.toLowerCase(); }
 	public void printSequence() { System.out.println("Consensus Sequence :\n"+ this.consensusSeq); };
 }

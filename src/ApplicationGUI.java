@@ -3,17 +3,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.Scanner;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;  
 
@@ -28,7 +27,7 @@ public class ApplicationGUI {
 	
 
 	public ApplicationGUI() {
-		this.frame = new JFrame();//creating instance of JFrame  
+		this.frame = new JFrame("Consensus Tool v1.0.0");//creating instance of JFrame  
 		//this.seq = s;
 		initWindow();
 		dataService = new DataService();
@@ -36,24 +35,39 @@ public class ApplicationGUI {
 	
 	//add simple elements to window
 	private void initWindow() {
-		
+			
 		//left panel
 		JPanel leftPanel = new JPanel();
-		leftPanel.setBounds(0,LEFT_PANEL_YCOORD, FRAME_WIDTH/2, FRAME_HEIGHT);
+		leftPanel.setBounds(0,LEFT_PANEL_YCOORD, FRAME_WIDTH/2, FRAME_HEIGHT-50);
 		leftPanel.setBackground(Color.GRAY);
 		frame.add(leftPanel);
 		
+		//right panel
+		JPanel rightPanel = new JPanel();
+		rightPanel.setBounds(FRAME_WIDTH/2, 0, FRAME_WIDTH/2, FRAME_HEIGHT);
+		rightPanel.setBackground(Color.DARK_GRAY);
+		frame.add(rightPanel);
+		
 		//left label
-		JLabel leftLable = new JLabel("Enter your sequences (name + sequece)");
-		leftLable.setBounds(0, 0, leftPanel.getWidth(), leftPanel.getY());
-		frame.add(leftLable);
+		JLabel leftLabel = new JLabel("Enter your sequences (name + sequece)");
+		leftLabel.setHorizontalAlignment(JLabel.CENTER);
+		leftLabel.setBounds(0, 0, leftPanel.getWidth(), leftPanel.getY());
+		frame.add(leftLabel);
 		
 		//left text area
-		JTextArea inputText = new JTextArea("[separate items by new lines] \n"
+		/*JTextArea inputText = new JTextArea("[separate items by new lines] \n"
 				+ "[Sequences must have the same length]\n"
 				+ "Example: \n"
 				+ "human atcatcatc \n"
-				+ "cat attccgg");
+				+ "cat   attccggtc");
+		*/
+		
+		JTextArea inputText = new JTextArea(""
+				+ "human agtctgtcgtct \n"
+				+ "cat agccggtaggaa \n"
+				+ "rat agcccgtcgggt\n"
+				+ "pig agtctgtcgcgt\n"
+				+ "dog agctacgtagcc\n");
 		//create scroll for input area
 		JScrollPane inputBoxScroll = new JScrollPane(
 				inputText,
@@ -68,17 +82,11 @@ public class ApplicationGUI {
 	            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 		//doesn't need to add inputText as already included in inputBoxScroll
 		leftPanel.add(inputBoxScroll);
-		
-		//right panel
-		JPanel rightPanel = new JPanel();
-		rightPanel.setBounds(FRAME_WIDTH/2, 0, FRAME_WIDTH/2, FRAME_HEIGHT);
-		rightPanel.setBackground(Color.DARK_GRAY);
-		frame.add(rightPanel);
 
-		//testing
-		JButton button = new JButton();
-		button.setText("Get input text");
-		button.addActionListener(new ActionListener() {
+		//button to build the data
+		JButton buildButton = new JButton();
+		buildButton.setText("Build");
+		buildButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -87,15 +95,65 @@ public class ApplicationGUI {
 				if(dataService.isValidData(s)) {
 					dataService.insertData(s);
 					dataService.generateData();
+					JTabbedPane tabbedPane = new JTabbedPane();
+					tabbedPane.setTabPlacement(JTabbedPane.LEFT);
+					makeTabs(tabbedPane);
+			        //rightPanel.add(tabbedPane);
+			      //create scroll for input area
+					JScrollPane rightBoxScroll = new JScrollPane(
+							tabbedPane,
+							JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+							JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS
+							);
+					rightBoxScroll.setMinimumSize(new Dimension(rightPanel.getWidth(),rightPanel.getHeight()));
+					rightBoxScroll.setPreferredSize(new Dimension(rightPanel.getWidth(),rightPanel.getHeight()-80));
+					//doesn't need to add inputText as already included in inputBoxScroll
+				    rightPanel.add(rightBoxScroll);
 				}
-				else System.out.println(dataService.getValidateError());
+				else {
+					System.out.println(dataService.getValidateError());
+					showErrorDialog(frame,dataService.getValidateError());
+				}
+				
+				frame.revalidate();
+				frame.repaint();
+		}});
+		
+		// Button to reset data
+		JButton resetButton = new JButton();
+		resetButton.setText("Reset");
+		resetButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				inputText.setText("");
+				dataService = new DataService();
+				rightPanel.removeAll();
 				
 				frame.revalidate();
 				frame.repaint();
 			}});
 		
-		button.setBounds(100, 100, 100, 50);
-		rightPanel.add(button);
+		JButton aboutButton = new JButton();
+		aboutButton.setText("About");
+		aboutButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				showAboutDialog(frame);
+			}});
+		
+		
+		// Buttons
+		buildButton.setBounds(100, 100, 100, 50);
+		leftPanel.add(buildButton);
+		resetButton.setBounds(100, 100, 100, 50);
+		leftPanel.add(resetButton);
+		aboutButton.setBounds(100, 100, 100, 50);
+		leftPanel.add(aboutButton);
+
 		          
 		frame.setSize(FRAME_WIDTH,FRAME_HEIGHT);//600 width and 500 height  
 		
@@ -104,4 +162,45 @@ public class ApplicationGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 	}
 	
+	private static void showErrorDialog(JFrame frame, String error) {
+		JOptionPane.showMessageDialog(frame,
+				error,
+			    "Error",
+			    JOptionPane.ERROR_MESSAGE);
+	}
+	
+	private static void showAboutDialog(JFrame frame) {
+		String s = "This program helps to build and\n"
+				+ "analyze consensus sequence and its matrix.\n"
+				+ "Author: Hung Tran && Khoa Pham \n"
+				+ "CS 123A @ SJSU Fall 2018";
+		JOptionPane.showMessageDialog(frame,
+				s,
+			    "About this program!",
+			    JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	private void makeTabs(JTabbedPane tabbedPane) {
+		JComponent panel1 = makeTextPanel(dataService.getFreqMatrix()
+				+"\n"+ dataService.getConsesusSeq()
+				+"\n\n"+ dataService.getResidueSeq());
+		tabbedPane.addTab("Consensus", null, panel1,
+		                  "Consensus Sequence");
+         
+        JComponent panel2 = makeTextPanel(dataService.getPWMatrix());
+        tabbedPane.addTab("PWMatrix", null, panel2,
+                "Position Weighted Matrix");
+         
+        JComponent panel3 = makeTextPanel(dataService.getPPMatrix());
+        tabbedPane.addTab("PPMatrix", null, panel3,
+                "Position Probability Matrix");        
+	}
+	
+	protected JComponent makeTextPanel(String text) {
+        JTextArea panel = new JTextArea(text);
+        //panel.setLayout(new GridLayout(1, 1));
+        //panel.add(filler);
+        panel.setEditable(false);
+        return panel;
+    }	
 }

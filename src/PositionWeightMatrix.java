@@ -98,4 +98,40 @@ public class PositionWeightMatrix extends Consensus{
 			System.out.println();
 		}
 	}
+	public String getMatrix(int type) {
+		String s ="";
+		if(type == this.PPMatrix) {
+			s += "Position-Probability Matrix(%) :\n";
+		}
+		else if(type == this.PWMatrix) {
+			s += "Position-Weighted Matrix: \n";
+		}
+		
+		
+		for (int i = 0; i < MAX_ROW; i++) { // max row = 4
+			if (i == 0){
+				s += "A| ";
+			} else if (i == 1){
+				s += "T| ";
+			} else if (i == 2) {
+				s += "C| ";
+			} else {
+				s += "G| ";
+			}
+
+			for (int y = 0; y < this.length; y++) { // length
+				double val = 0.0;
+				if(type == this.PPMatrix) {
+					 val = positionProbabilityMatrix[i][y];
+				}
+				else if(type == this.PWMatrix) {
+					 val = positionWeightMatrix[i][y];
+				}
+				
+				s += val +" |";
+			}
+			s += "\n";
+		}
+		return s;
+	}
 }

@@ -69,4 +69,17 @@ public class ResidueSeq extends Consensus {
 				+ "{A} any base except A \n"
 				+ "N for any bases");
 	}
+	
+	public String getSequence() {
+		String s = "";
+		s += "Residue Sequence: \n";
+		s += this.residueSequence;
+		s += "\n\nNotations: \n"
+				+ "A means A always found in that position \n"
+				+ "[AT] means either A or T \n"
+				+ "{A} any base except A \n"
+				+ "N for any bases";
+		
+		return s;
+	}
 }
