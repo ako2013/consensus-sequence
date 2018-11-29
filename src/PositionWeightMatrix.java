@@ -52,14 +52,26 @@ public class PositionWeightMatrix extends Consensus{
 	}
 	
 	// this method calculate score of input seq based on PWM scores
-	public double calcScore(String seq) {
+	public double calcScore(String seq, int type) {
 		seq = seq.toUpperCase();
 		double score = 0.0;
-		for(int pos = 0; pos < seq.length(); pos++) {
-			if(seq.charAt(pos) == 'A') score += this.positionWeightMatrix[A_ROW][pos];
-			else if(seq.charAt(pos) == 'T') score += this.positionWeightMatrix[T_ROW][pos];
-			else if(seq.charAt(pos) == 'C') score += this.positionWeightMatrix[C_ROW][pos];
-			else if(seq.charAt(pos) == 'G') score += this.positionWeightMatrix[G_ROW][pos];
+		
+		if(type == this.PWMatrix) {
+		
+			for(int pos = 0; pos < seq.length(); pos++) {
+				if(seq.charAt(pos) == 'A') score += this.positionWeightMatrix[A_ROW][pos];
+				else if(seq.charAt(pos) == 'T') score += this.positionWeightMatrix[T_ROW][pos];
+				else if(seq.charAt(pos) == 'C') score += this.positionWeightMatrix[C_ROW][pos];
+				else if(seq.charAt(pos) == 'G') score += this.positionWeightMatrix[G_ROW][pos];
+			}
+		}
+		else if(type == this.PPMatrix) {
+			for(int pos = 0; pos < seq.length(); pos++) {
+				if(seq.charAt(pos) == 'A') score += this.positionProbabilityMatrix[A_ROW][pos];
+				else if(seq.charAt(pos) == 'T') score += this.positionProbabilityMatrix[T_ROW][pos];
+				else if(seq.charAt(pos) == 'C') score += this.positionProbabilityMatrix[C_ROW][pos];
+				else if(seq.charAt(pos) == 'G') score += this.positionProbabilityMatrix[G_ROW][pos];
+			}
 		}
 		return this.round(score,2);
 	}

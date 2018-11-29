@@ -1,5 +1,6 @@
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,7 +20,7 @@ import javax.swing.border.Border;
 public class ApplicationGUI {
 	
 	private final static int FRAME_WIDTH = 600;
-	private final static int FRAME_HEIGHT = 500;
+	private final static int FRAME_HEIGHT = 600;
 	private final static int LEFT_PANEL_YCOORD = 50;
 	
 	private JFrame frame;
@@ -49,13 +50,14 @@ public class ApplicationGUI {
 		frame.add(rightPanel);
 		
 		//left label
-		JLabel leftLabel = new JLabel("Enter your sequences (name + sequece)");
+		JLabel leftLabel = new JLabel("Enter your data (name + sequece):");
 		leftLabel.setHorizontalAlignment(JLabel.CENTER);
 		leftLabel.setBounds(0, 0, leftPanel.getWidth(), leftPanel.getY());
 		frame.add(leftLabel);
 		
 		//left text area
 		/*JTextArea inputText = new JTextArea("[separate items by new lines] \n"
+		 		+ "[White space sensitives] \n"
 				+ "[Sequences must have the same length]\n"
 				+ "Example: \n"
 				+ "human atcatcatc \n"
@@ -63,8 +65,8 @@ public class ApplicationGUI {
 		*/
 		
 		JTextArea inputText = new JTextArea(""
-				+ "human agtctgtcgtct \n"
-				+ "cat agccggtaggaa \n"
+				+ "human agtctgtcgtct\n"
+				+ "cat agccggtaggaa\n"
 				+ "rat agcccgtcgggt\n"
 				+ "pig agtctgtcgcgt\n"
 				+ "dog agctacgtagcc\n");
@@ -93,8 +95,11 @@ public class ApplicationGUI {
 				String s = inputText.getText();
 				
 				if(dataService.isValidData(s)) {
+					rightPanel.removeAll();
 					dataService.insertData(s);
 					dataService.generateData();
+					
+					//Create tabs for processed data 
 					JTabbedPane tabbedPane = new JTabbedPane();
 					tabbedPane.setTabPlacement(JTabbedPane.LEFT);
 					makeTabs(tabbedPane);
@@ -106,9 +111,56 @@ public class ApplicationGUI {
 							JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS
 							);
 					rightBoxScroll.setMinimumSize(new Dimension(rightPanel.getWidth(),rightPanel.getHeight()));
-					rightBoxScroll.setPreferredSize(new Dimension(rightPanel.getWidth(),rightPanel.getHeight()-80));
+					rightBoxScroll.setPreferredSize(new Dimension(rightPanel.getWidth(),rightPanel.getHeight()-150));
 					//doesn't need to add inputText as already included in inputBoxScroll
 				    rightPanel.add(rightBoxScroll);
+				    
+				    //this part is for input and score a sequence based on data
+				    JLabel labelPanel = new JLabel("Enter a sequence to calculate score: ");
+			        labelPanel.setBounds(0 ,0 , FRAME_WIDTH/2, FRAME_HEIGHT/6);
+			        labelPanel.setForeground(Color.WHITE);
+					rightPanel.add(labelPanel);
+					
+					JTextArea inputText = new JTextArea("human agtctgtcgtct");
+					//create scroll for input area
+					JScrollPane inputBoxScroll = new JScrollPane(
+							inputText,
+							JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+							JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS
+							);
+					inputBoxScroll.setMinimumSize(new Dimension(leftPanel.getWidth(),60));
+					inputBoxScroll.setPreferredSize(new Dimension(leftPanel.getWidth(),60));
+					//create border
+					Border border = BorderFactory.createLineBorder(Color.BLACK);
+				    inputText.setBorder(BorderFactory.createCompoundBorder(border,
+				            BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+					//doesn't need to add inputText as already included in inputBoxScroll
+					rightPanel.add(inputBoxScroll);
+					JButton scoreButton = new JButton();
+					scoreButton.setText("Score");
+					scoreButton.addActionListener(new ActionListener() {
+
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							String s = inputText.getText();
+							tabbedPane.setSelectedIndex(3);
+							
+							if(dataService.isValidData(s)) {
+								String splitted = s.split(" ")[1];
+								tabbedPane.setComponentAt(3, 
+										makeTextPanel( s
+								+"\nScore based on PWM: "+ dataService.getScorePWMatrix(splitted)
+								+"\nScore based on PPM: "+ dataService.getScorePPMatrix(splitted)));
+							}
+							else {
+								System.out.println(dataService.getValidateError());
+								showErrorDialog(frame,dataService.getValidateError());
+							}
+							
+							frame.revalidate();
+							frame.repaint();
+						}});
+					rightPanel.add(scoreButton);
 				}
 				else {
 					System.out.println(dataService.getValidateError());
@@ -118,7 +170,7 @@ public class ApplicationGUI {
 				frame.revalidate();
 				frame.repaint();
 		}});
-		
+        
 		// Button to reset data
 		JButton resetButton = new JButton();
 		resetButton.setText("Reset");
@@ -193,13 +245,15 @@ public class ApplicationGUI {
          
         JComponent panel3 = makeTextPanel(dataService.getPPMatrix());
         tabbedPane.addTab("PPMatrix", null, panel3,
-                "Position Probability Matrix");        
+                "Position Probability Matrix");       
+        
+        JComponent panel4 = makeTextPanel("\n");        
+        tabbedPane.addTab("Scoring", null, panel4,
+                "Scoring A Sequence");    
 	}
 	
 	protected JComponent makeTextPanel(String text) {
         JTextArea panel = new JTextArea(text);
-        //panel.setLayout(new GridLayout(1, 1));
-        //panel.add(filler);
         panel.setEditable(false);
         return panel;
     }	

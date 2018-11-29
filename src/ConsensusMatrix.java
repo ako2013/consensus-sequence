@@ -71,7 +71,7 @@ public class ConsensusMatrix extends Consensus {
 	}
 	@Override
 	public String toString() {
-		String s = "";
+		String s = "# of bases per sequence: "+ this.length+"\n";
 		s += "Frequency Matrix: "+ System.lineSeparator();
 		for (int i = 0; i < MAX_ROW; i++) { // max row = 4
 			if (i == 0){

@@ -72,7 +72,7 @@ public class InputValidator {
 			return this.errorCode;
 		}
 		//for single entry
-		this.errorCode = ERROR_CODE_INVALID_INPUT;
+		//this.errorCode = ERROR_CODE_INVALID_INPUT;
 		return this.errorCode;
 	}
 	

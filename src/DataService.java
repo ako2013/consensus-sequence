@@ -54,4 +54,8 @@ public class DataService {
 	public String getPWMatrix() { return this.pwm.getMatrix(1); }
 	
 	public String getPPMatrix() { return this.pwm.getMatrix(2); }
+	
+	public String getScorePWMatrix(String s) { return Double.toString(this.pwm.calcScore(s, 1));}
+	
+	public String getScorePPMatrix(String s) { return Double.toString(this.pwm.calcScore(s, 2));}
 }
