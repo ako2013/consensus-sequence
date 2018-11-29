@@ -19,7 +19,7 @@ import javax.swing.border.Border;
 
 public class ApplicationGUI {
 	
-	private final static int FRAME_WIDTH = 600;
+	private final static int FRAME_WIDTH = 800;
 	private final static int FRAME_HEIGHT = 600;
 	private final static int LEFT_PANEL_YCOORD = 50;
 	
@@ -247,7 +247,8 @@ public class ApplicationGUI {
         tabbedPane.addTab("PPMatrix", null, panel3,
                 "Position Probability Matrix");       
         
-        JComponent panel4 = makeTextPanel("\n");        
+        JComponent panel4 = makeTextPanel("Enter a sequence to calculate score\n"
+        		+ "at the bottom!");        
         tabbedPane.addTab("Scoring", null, panel4,
                 "Scoring A Sequence");    
 	}

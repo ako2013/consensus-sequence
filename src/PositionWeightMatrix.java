@@ -113,7 +113,7 @@ public class PositionWeightMatrix extends Consensus{
 	public String getMatrix(int type) {
 		String s ="";
 		if(type == this.PPMatrix) {
-			s += "Position-Probability Matrix(%) :\n";
+			s += "Position-Probability Matrix: \n";
 		}
 		else if(type == this.PWMatrix) {
 			s += "Position-Weighted Matrix: \n";
