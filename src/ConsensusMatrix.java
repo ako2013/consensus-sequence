@@ -41,6 +41,8 @@ public class ConsensusMatrix extends Consensus {
 				case 'G':
 					matrix[G_ROW][i] += 1;
 					break;
+				case '-':
+					break;
 				default:
 					System.out.println("Error in buildingMaxtrix");
 				}

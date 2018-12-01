@@ -28,7 +28,7 @@ public class InputValidator {
 		this.scan = new Scanner(this.str);
 		
 		//check if the sequence contains only A, T, C, G
-		final Pattern sequencePattern = Pattern.compile("^[ATCGatcg]++$");
+		final Pattern sequencePattern = Pattern.compile("^[-ATCGatcg]++$");
 		
 		try {
 			

@@ -32,8 +32,12 @@ public class main {
 		
 		System.out.println(pwm.calcScore("tgtctgtcgcgt"));
 		*/
+		runProgram();
 		
-		ApplicationGUI window = new ApplicationGUI();
+	}
+	
+	private static void runProgram() {
+		new ApplicationGUI();
 	}
 
 }
