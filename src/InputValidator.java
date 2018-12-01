@@ -3,6 +3,7 @@ import java.util.regex.Pattern;
 
 public class InputValidator {
 	
+	// constants 
 	private static final int ITEM_NAME = 0;
 	private static final int ITEM_SEQ = 1;
 	private static final int ERROR_CODE_OK = 0;
@@ -10,11 +11,17 @@ public class InputValidator {
 	private static final int ERROR_CODE_INVALID_INPUT = 101;
 	private static final int ERROR_CODE_PARSING = 102;
 	
+	// variables
 	private String str;
 	private boolean isValid;
 	private Scanner scan;
 	private int errorCode;
 	
+	/**
+	 * Constructor
+	 * 
+	 * @param s Take in a string sequence
+	 */
 	public InputValidator(String s) {
 		this.errorCode = 0;
 		this.str = s;
@@ -22,7 +29,11 @@ public class InputValidator {
 		//this.validate();
 	}
 	
-	//check if the input format is correct and the sequence length is equal
+	/**
+	 * check if the input format is correct and the sequence length is equal
+	 * 
+	 * @return the error code number and 0 if there's none
+	 */
 	public int checkInput() {
 		String[] words;
 		this.scan = new Scanner(this.str);
@@ -76,25 +87,42 @@ public class InputValidator {
 		return this.errorCode;
 	}
 	
-	//return the definition of the error code 
+	/**
+	 * This method returns the definition of the error code 
+	 * 
+	 * @return a string contains the definition of the error code
+	 */
 	public String getErrorDef() {
 		String definition = "";
 		
 		switch(this.errorCode) 
 		{
-		case ERROR_CODE_INVALID_SEQ:
-			definition = "Invalid sequence";
-			break;
-		case ERROR_CODE_INVALID_INPUT:
-			definition = "Invalid input";
-			break;
-		case ERROR_CODE_PARSING:
-			definition = "Error parsing";
-			break;
+			case ERROR_CODE_INVALID_SEQ:
+				definition = "Invalid sequence";
+				break;
+			case ERROR_CODE_INVALID_INPUT:
+				definition = "Invalid input";
+				break;
+			case ERROR_CODE_PARSING:
+				definition = "Error parsing";
+				break;
+			default:
+				break;
 		}
 		return definition;
 	}
 	
+	/**
+	 * This method returns the current string in this object
+	 * 
+	 * @return a string contains the sequence
+	 */
 	public String getString() {return this.str;}
+	
+	/**
+	 * This method returns if the string is valid or not
+	 * 
+	 * @return true if the string is suitable
+	 */
 	public boolean checkValid() {return this.isValid;}
 }

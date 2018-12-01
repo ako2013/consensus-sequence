@@ -36,6 +36,9 @@ public class main {
 		
 	}
 	
+	/**
+	 * This method invoke the GUI application
+	 */
 	private static void runProgram() {
 		new ApplicationGUI();
 	}

@@ -4,21 +4,34 @@ import java.util.Arrays;
 
 public class PositionWeightMatrix extends Consensus{
 	
-	private double[][] positionWeightMatrix;
-	private double[][] positionProbabilityMatrix;
-	private int dataLength;
+	// constants
 	private final int PWMatrix = 1;
 	private final int PPMatrix = 2;
 	
+	// variables
+	private double[][] positionWeightMatrix;
+	private double[][] positionProbabilityMatrix;
+	private int dataLength;
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param m Takes in the frequency matrix
+	 * @param len Takes in the length of the sequence
+	 * @param dataLen Takes in the total number of sequences
+	 */
 	public PositionWeightMatrix(int[][] m, int len, int dataLen) {
 		super(len);
 		this.matrix = m;
 		this.dataLength = dataLen;
 		this.positionWeightMatrix = new double[MAX_ROW][this.length];
 		this.positionProbabilityMatrix = new double[MAX_ROW][this.length];
-		this.buildMatrix();
+		this.buildMatrix(); // self-invoking
 	}
 	
+	/*
+	 * This method build the Position-Weighted and Position Probability matrix 
+	 */
 	private void buildMatrix() {
 		for(int row = 0; row < MAX_ROW; row++) {
 			for(int i = 0; i < this.length; i++) {
@@ -33,8 +46,14 @@ public class PositionWeightMatrix extends Consensus{
 		}
 	}
 	
-	// helper method to round double to n places
-	// author: https://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
+	/**
+	 * Helper method to round double to n places
+	 * @author: https://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
+	 * 
+	 * @param value Takes in a double number
+	 * @param places Takes in an integer for calculating decimal places
+	 * @return a rounded double number to the n decimal places
+	 */
 	private double round(double value, int places) {
 	    if (places < 0) throw new IllegalArgumentException();
 
@@ -42,8 +61,13 @@ public class PositionWeightMatrix extends Consensus{
 	    bd = bd.setScale(places, RoundingMode.HALF_UP);
 	    return bd.doubleValue();
 	}
-	// helper method to calculate log2 of a number
-	// modified version from: https://www.linuxquestions.org/questions/programming-9/log-base-2-function-in-java-594619/
+	/**
+	 * Helper method to calculate log2 of a number
+	 * modified version from: https://www.linuxquestions.org/questions/programming-9/log-base-2-function-in-java-594619/
+	 * 
+	 * @param num a decimal number 
+	 * @return the log2 value of the input number
+	 */
 	private double log2(double num){
 		double result = (Math.log(num)/Math.log(2));
 		if (result == Double.POSITIVE_INFINITY) return 99.0;
@@ -51,7 +75,13 @@ public class PositionWeightMatrix extends Consensus{
 		return result;
 	}
 	
-	// this method calculate score of input seq based on PWM scores
+	/**
+	 * This method calculate score of input seq based on PWM scores
+	 * 
+	 * @param seq sequence from the user input
+	 * @param type integer indicating the type of matrix, 1 for PWM, 2 for PPM
+	 * @return the calculated score of the input sequence
+	 */
 	public double calcScore(String seq, int type) {
 		seq = seq.toUpperCase();
 		double score = 0.0;
@@ -76,6 +106,11 @@ public class PositionWeightMatrix extends Consensus{
 		return this.round(score,2);
 	}
 	
+	/**
+	 * This method prints the matrix into the CLI
+	 * 
+	 * @param type number indicating the type of matrix, 1 for Weighted, 2 for Probability
+	 */
 	public void printMatrix(int type) {
 		if(type == this.PPMatrix) {
 			System.out.println("Position-Probability Matrix(%) : ");
@@ -110,6 +145,13 @@ public class PositionWeightMatrix extends Consensus{
 			System.out.println();
 		}
 	}
+	
+	/**
+	 * This method return a string of the matrix
+	 * 
+	 * @param type number indicating the type of matrix, 1 for weighted, 2 for probability
+	 * @return a String contains the matrix 
+	 */
 	public String getMatrix(int type) {
 		String s ="";
 		if(type == this.PPMatrix) {

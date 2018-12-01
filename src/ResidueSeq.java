@@ -6,14 +6,24 @@ public class ResidueSeq extends Consensus {
 	private String residueSequence;
 	private int dataSize;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param m Takes in the frequency matrix
+	 * @param len Takes in the length of the sequence
+	 * @param d Takes in the data 
+	 */
 	public ResidueSeq(int[][] m, int len, SequenceData d) {
 		super(len);
 		this.matrix = m;
 		this.residueSequence = "";
 		this.dataSize = d.getNumberOfSequences();
-		this.buildSequence();
+		this.buildSequence(); // self-invoking
 	}
 	
+	/**
+	 * This method invoke the class to build the residue sequence
+	 */
 	private void buildSequence() {
 		List<Integer> noneZeroList;
 		for(int i = 0; i < this.length;i++) {
@@ -29,9 +39,8 @@ public class ResidueSeq extends Consensus {
 			for(int y = 0; y < MAX_ROW; y++) {
 				if(this.matrix[y][i] != 0) noneZeroList.add(y);
 			}
-			//System.out.println("Size:" +noneZeroList.size());
 			
-			//when two motifs are 0
+			// when two motifs are 0
 			if(noneZeroList.size() == 2) {
 				this.residueSequence += "[";
 				for(Integer item : noneZeroList) {
@@ -56,10 +65,12 @@ public class ResidueSeq extends Consensus {
 			else if(noneZeroList.size() == 4) {
 				this.residueSequence += "N ";
 			}
-			//this.residueSequence += " | ";
 		}
 	}
 	
+	/**
+	 * This method output the residue sequence to the CLI
+	 */
 	public void printResidueSequence() {
 		System.out.println("Residue Sequence:");
 		System.out.println(this.residueSequence);
@@ -70,6 +81,11 @@ public class ResidueSeq extends Consensus {
 				+ "N for any bases");
 	}
 	
+	/**
+	 * This method return the residue sequence and the notations
+	 * 
+	 * @return a String contains the residue analysis
+	 */
 	public String getSequence() {
 		String s = "";
 		s += "Residue Sequence: \n";

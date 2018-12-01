@@ -61,6 +61,9 @@ public class SequenceData implements SeqDataInterface {
 		return this.map.keySet();
 	}
 
+	/**
+	 * This method output the data into CLI
+	 */
 	public void printData() {
 		if (this.map.isEmpty())
 			System.out.println("Data is empty");
@@ -84,6 +87,11 @@ public class SequenceData implements SeqDataInterface {
 		return entry.getValue().length();
 	}
 
+	/**
+	 * This method return the total sequence in the data structure
+	 * 
+	 * @return number of total sequences
+	 */
 	public int getNumberOfSequences(){
 		return this.map.size();
 	}

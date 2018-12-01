@@ -10,9 +10,12 @@ public class ConsensusSeq extends Consensus {
 	public ConsensusSeq(int[][] m, int len){
 		super(len);
 		this.matrix = m;
-		this.buildConsesus();
+		this.buildConsesus(); //invoke the object to build the data
 	}
 
+	/**
+	 * This method build the Consensus sequence
+	 */
 	private void buildConsesus(){
 		consensusSeq = "";
 		for(int i = 0; i < this.length; i++){
@@ -29,7 +32,16 @@ public class ConsensusSeq extends Consensus {
 			else this.consensusSeq += "G";
 ;		}
 	}
-
+	
+	/**
+	 * This method returns a String of analyzed consensus sequence
+	 * 
+	 * @return
+	 */
 	public String getSequence() { return "Consensus Sequence :\n"+ this.consensusSeq.toLowerCase(); }
+	
+	/**
+	 * This method output the analyzed consensus sequence to CLI
+	 */
 	public void printSequence() { System.out.println("Consensus Sequence :\n"+ this.consensusSeq); };
 }

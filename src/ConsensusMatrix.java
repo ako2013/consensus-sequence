@@ -15,7 +15,7 @@ public class ConsensusMatrix extends Consensus {
 		this.buildMatrix();
 	}
 
-	/*
+	/**
 	 * 0 1 2 3 4 5 6 .... A T C G
 	 *
 	 * Method to build frequency matrix
@@ -50,6 +50,10 @@ public class ConsensusMatrix extends Consensus {
 		}
 	}
 
+	/**
+	 * Method to print the matrix on CLI
+	 * 
+	 */
 	public void printMatrix() {
 		System.out.println("Frequency Matrix: ");
 		for (int i = 0; i < MAX_ROW; i++) { // max row = 4
@@ -71,6 +75,9 @@ public class ConsensusMatrix extends Consensus {
 			System.out.println();
 		}
 	}
+	/**
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() {
 		String s = "# of bases per sequence: "+ this.length+"\n";
@@ -96,10 +103,16 @@ public class ConsensusMatrix extends Consensus {
 		return s;
 	}
 
+	/**
+	 * This method return the length of the sequence
+	 */
 	public int getLength() {
 		return this.length;
 	}
-
+	
+	/**
+	 * This method return the frequency matrix used in this object
+	 */
 	public int[][] getMatrix() {
 		return this.matrix;
 	}

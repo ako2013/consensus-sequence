@@ -19,22 +19,28 @@ import javax.swing.border.Border;
 
 public class ApplicationGUI {
 	
+	// constants
 	private final static int FRAME_WIDTH = 800;
 	private final static int FRAME_HEIGHT = 600;
 	private final static int LEFT_PANEL_YCOORD = 50;
 	
-	private JFrame frame;
-	private DataService dataService;
+	// components and service
+	private JFrame frame; // Application UI Wrapper
+	private DataService dataService; // Import data service
 	
 
+	/**
+	 * Constructor of the GUI class
+	 */
 	public ApplicationGUI() {
 		this.frame = new JFrame("Consensus Tool v1.0.0");//creating instance of JFrame  
-		//this.seq = s;
-		initWindow();
+		initWindow(); //self invoking the UI
 		dataService = new DataService();
 	}
 	
-	//add simple elements to window
+	/**
+	 * Add simple elements to window
+	 */
 	private void initWindow() {
 			
 		//left panel
@@ -214,6 +220,12 @@ public class ApplicationGUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 	}
 	
+	/**
+	 * This method show an error Popup on the UI
+	 * 
+	 * @param frame Take in the current frame 
+	 * @param error Take in a string to display in the error dialog
+	 */
 	private static void showErrorDialog(JFrame frame, String error) {
 		JOptionPane.showMessageDialog(frame,
 				error,
@@ -221,6 +233,11 @@ public class ApplicationGUI {
 			    JOptionPane.ERROR_MESSAGE);
 	}
 	
+	/**
+	 * This method show an Popup on the UI
+	 * 
+	 * @param frame take in the current frame
+	 */
 	private static void showAboutDialog(JFrame frame) {
 		String s = "This program helps to build and\n"
 				+ "analyze consensus sequence and its matrix.\n"
@@ -232,6 +249,11 @@ public class ApplicationGUI {
 			    JOptionPane.INFORMATION_MESSAGE);
 	}
 	
+	/**
+	 * This method add Tabs to TabbedPane component
+	 * 
+	 * @param tabbedPane Take in the JTabbedPane component
+	 */
 	private void makeTabs(JTabbedPane tabbedPane) {
 		JComponent panel1 = makeTextPanel(dataService.getFreqMatrix()
 				+"\n"+ dataService.getConsesusSeq()
@@ -253,6 +275,12 @@ public class ApplicationGUI {
                 "Scoring A Sequence");    
 	}
 	
+	/**
+	 * This method return a text area 
+	 * 
+	 * @param text Take in a string to display on the init JTextArea
+	 * @return
+	 */
 	protected JComponent makeTextPanel(String text) {
         JTextArea panel = new JTextArea(text);
         panel.setEditable(false);
