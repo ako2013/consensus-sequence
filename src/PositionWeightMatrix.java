@@ -97,10 +97,10 @@ public class PositionWeightMatrix extends Consensus{
 		}
 		else if(type == this.PPMatrix) {
 			for(int pos = 0; pos < seq.length(); pos++) {
-				if(seq.charAt(pos) == 'A'&& this.positionWeightMatrix[A_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[A_ROW][pos];
-				else if(seq.charAt(pos) == 'T' && this.positionWeightMatrix[T_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[T_ROW][pos];
-				else if(seq.charAt(pos) == 'C' && this.positionWeightMatrix[C_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[C_ROW][pos];
-				else if(seq.charAt(pos) == 'G' && this.positionWeightMatrix[G_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[G_ROW][pos];
+				if(seq.charAt(pos) == 'A'&& this.positionProbabilityMatrix[A_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[A_ROW][pos];
+				else if(seq.charAt(pos) == 'T' && this.positionProbabilityMatrix[T_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[T_ROW][pos];
+				else if(seq.charAt(pos) == 'C' && this.positionProbabilityMatrix[C_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[C_ROW][pos];
+				else if(seq.charAt(pos) == 'G' && this.positionProbabilityMatrix[G_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[G_ROW][pos];
 			}
 		}
 		//System.out.println(score);
