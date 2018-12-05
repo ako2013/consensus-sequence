@@ -3,19 +3,19 @@ import java.math.RoundingMode;
 import java.util.Arrays;
 
 public class PositionWeightMatrix extends Consensus{
-	
+
 	// constants
 	private final int PWMatrix = 1;
 	private final int PPMatrix = 2;
-	
+
 	// variables
 	private double[][] positionWeightMatrix;
 	private double[][] positionProbabilityMatrix;
 	private int dataLength;
-	
+
 	/**
 	 * Constructor
-	 * 
+	 *
 	 * @param m Takes in the frequency matrix
 	 * @param len Takes in the length of the sequence
 	 * @param dataLen Takes in the total number of sequences
@@ -28,15 +28,15 @@ public class PositionWeightMatrix extends Consensus{
 		this.positionProbabilityMatrix = new double[MAX_ROW][this.length];
 		this.buildMatrix(); // self-invoking
 	}
-	
+
 	/*
-	 * This method build the Position-Weighted and Position Probability matrix 
+	 * This method build the Position-Weighted and Position Probability matrix
 	 */
 	private void buildMatrix() {
 		for(int row = 0; row < MAX_ROW; row++) {
 			for(int i = 0; i < this.length; i++) {
 				double odd = (double)this.matrix[row][i] / this.dataLength;
-				this.positionWeightMatrix[row][i] = 
+				this.positionWeightMatrix[row][i] =
 						this.round(
 								//odd
 								this.log2(odd/0.25)
@@ -45,11 +45,11 @@ public class PositionWeightMatrix extends Consensus{
 			}
 		}
 	}
-	
+
 	/**
 	 * Helper method to round double to n places
 	 * @author: https://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
-	 * 
+	 *
 	 * @param value Takes in a double number
 	 * @param places Takes in an integer for calculating decimal places
 	 * @return a rounded double number to the n decimal places
@@ -64,8 +64,8 @@ public class PositionWeightMatrix extends Consensus{
 	/**
 	 * Helper method to calculate log2 of a number
 	 * modified version from: https://www.linuxquestions.org/questions/programming-9/log-base-2-function-in-java-594619/
-	 * 
-	 * @param num a decimal number 
+	 *
+	 * @param num a decimal number
 	 * @return the log2 value of the input number
 	 */
 	private double log2(double num){
@@ -74,41 +74,42 @@ public class PositionWeightMatrix extends Consensus{
 		else if(result == Double.NEGATIVE_INFINITY) return -99.0;
 		return result;
 	}
-	
+
 	/**
 	 * This method calculate score of input seq based on PWM scores
-	 * 
+	 *
 	 * @param seq sequence from the user input
 	 * @param type integer indicating the type of matrix, 1 for PWM, 2 for PPM
 	 * @return the calculated score of the input sequence
 	 */
 	public double calcScore(String seq, int type) {
 		seq = seq.toUpperCase();
-		double score = 0.0;
-		
+		double score = 1;
+
 		if(type == this.PWMatrix) {
-		
+
 			for(int pos = 0; pos < seq.length(); pos++) {
-				if(seq.charAt(pos) == 'A') score += this.positionWeightMatrix[A_ROW][pos];
-				else if(seq.charAt(pos) == 'T') score += this.positionWeightMatrix[T_ROW][pos];
-				else if(seq.charAt(pos) == 'C') score += this.positionWeightMatrix[C_ROW][pos];
-				else if(seq.charAt(pos) == 'G') score += this.positionWeightMatrix[G_ROW][pos];
+				if(seq.charAt(pos) == 'A' && this.positionWeightMatrix[A_ROW][pos] != -99) score *= this.positionWeightMatrix[A_ROW][pos];
+				else if(seq.charAt(pos) == 'T' && this.positionWeightMatrix[T_ROW][pos] != -99) score *= this.positionWeightMatrix[T_ROW][pos];
+				else if(seq.charAt(pos) == 'C' && this.positionWeightMatrix[C_ROW][pos] != -99) score *= this.positionWeightMatrix[C_ROW][pos];
+				else if(seq.charAt(pos) == 'G' && this.positionWeightMatrix[G_ROW][pos] != -99) score *= this.positionWeightMatrix[G_ROW][pos];
 			}
 		}
 		else if(type == this.PPMatrix) {
 			for(int pos = 0; pos < seq.length(); pos++) {
-				if(seq.charAt(pos) == 'A') score += this.positionProbabilityMatrix[A_ROW][pos];
-				else if(seq.charAt(pos) == 'T') score += this.positionProbabilityMatrix[T_ROW][pos];
-				else if(seq.charAt(pos) == 'C') score += this.positionProbabilityMatrix[C_ROW][pos];
-				else if(seq.charAt(pos) == 'G') score += this.positionProbabilityMatrix[G_ROW][pos];
+				if(seq.charAt(pos) == 'A'&& this.positionWeightMatrix[A_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[A_ROW][pos];
+				else if(seq.charAt(pos) == 'T' && this.positionWeightMatrix[T_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[T_ROW][pos];
+				else if(seq.charAt(pos) == 'C' && this.positionWeightMatrix[C_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[C_ROW][pos];
+				else if(seq.charAt(pos) == 'G' && this.positionWeightMatrix[G_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[G_ROW][pos];
 			}
 		}
-		return this.round(score,2);
+		//System.out.println(score);
+		return score;
 	}
-	
+
 	/**
 	 * This method prints the matrix into the CLI
-	 * 
+	 *
 	 * @param type number indicating the type of matrix, 1 for Weighted, 2 for Probability
 	 */
 	public void printMatrix(int type) {
@@ -118,8 +119,8 @@ public class PositionWeightMatrix extends Consensus{
 		else if(type == this.PWMatrix) {
 			System.out.println("Position-Weighted Matrix: ");
 		}
-		
-		
+
+
 		for (int i = 0; i < MAX_ROW; i++) { // max row = 4
 			if (i == 0){
 				System.out.print("A| ");
@@ -139,18 +140,18 @@ public class PositionWeightMatrix extends Consensus{
 				else if(type == this.PWMatrix) {
 					 val = positionWeightMatrix[i][y];
 				}
-				
+
 				System.out.print(val +" |");
 			}
 			System.out.println();
 		}
 	}
-	
+
 	/**
 	 * This method return a string of the matrix
-	 * 
+	 *
 	 * @param type number indicating the type of matrix, 1 for weighted, 2 for probability
-	 * @return a String contains the matrix 
+	 * @return a String contains the matrix
 	 */
 	public String getMatrix(int type) {
 		String s ="";
@@ -160,8 +161,8 @@ public class PositionWeightMatrix extends Consensus{
 		else if(type == this.PWMatrix) {
 			s += "Position-Weighted Matrix: \n";
 		}
-		
-		
+
+
 		for (int i = 0; i < MAX_ROW; i++) { // max row = 4
 			if (i == 0){
 				s += "A| ";
@@ -181,7 +182,7 @@ public class PositionWeightMatrix extends Consensus{
 				else if(type == this.PWMatrix) {
 					 val = positionWeightMatrix[i][y];
 				}
-				
+
 				s += val +" |";
 			}
 			s += "\n";
