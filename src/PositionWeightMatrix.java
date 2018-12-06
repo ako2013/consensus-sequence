@@ -1,6 +1,7 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class PositionWeightMatrix extends Consensus{
 
@@ -84,26 +85,28 @@ public class PositionWeightMatrix extends Consensus{
 	 */
 	public double calcScore(String seq, int type) {
 		seq = seq.toUpperCase();
-		double score = 1;
-
+		HashMap<Character,Integer> map = new HashMap<Character,Integer>();
+		map.put('A', A_ROW);
+		map.put('T', T_ROW);
+		map.put('C', C_ROW);
+		map.put('G', G_ROW);
+		double score = 1.0;
+		int currChar;
+		
 		if(type == this.PWMatrix) {
-
 			for(int pos = 0; pos < seq.length(); pos++) {
-				if(seq.charAt(pos) == 'A' && this.positionWeightMatrix[A_ROW][pos] != -99) score *= this.positionWeightMatrix[A_ROW][pos];
-				else if(seq.charAt(pos) == 'T' && this.positionWeightMatrix[T_ROW][pos] != -99) score *= this.positionWeightMatrix[T_ROW][pos];
-				else if(seq.charAt(pos) == 'C' && this.positionWeightMatrix[C_ROW][pos] != -99) score *= this.positionWeightMatrix[C_ROW][pos];
-				else if(seq.charAt(pos) == 'G' && this.positionWeightMatrix[G_ROW][pos] != -99) score *= this.positionWeightMatrix[G_ROW][pos];
+				currChar = map.get(seq.charAt(pos));
+				if(this.positionWeightMatrix[currChar][pos] == -99) return -99.99;
+				score *= this.positionWeightMatrix[currChar][pos];
 			}
 		}
 		else if(type == this.PPMatrix) {
 			for(int pos = 0; pos < seq.length(); pos++) {
-				if(seq.charAt(pos) == 'A'&& this.positionProbabilityMatrix[A_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[A_ROW][pos];
-				else if(seq.charAt(pos) == 'T' && this.positionProbabilityMatrix[T_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[T_ROW][pos];
-				else if(seq.charAt(pos) == 'C' && this.positionProbabilityMatrix[C_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[C_ROW][pos];
-				else if(seq.charAt(pos) == 'G' && this.positionProbabilityMatrix[G_ROW][pos] != 0.0) score *= this.positionProbabilityMatrix[G_ROW][pos];
+				currChar = map.get(seq.charAt(pos));
+				if(this.positionProbabilityMatrix[currChar][pos] == 0.0) return 0.0;
+				score *= this.positionProbabilityMatrix[currChar][pos];
 			}
 		}
-		//System.out.println(score);
 		return score;
 	}
 
