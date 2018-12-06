@@ -16,7 +16,7 @@ public class InputValidator {
 	private boolean isValid;
 	private Scanner scan;
 	private int errorCode;
-	
+	private int errorPos;
 	/**
 	 * Constructor
 	 * 
@@ -50,12 +50,14 @@ public class InputValidator {
 			//loop to check all the seuqence length and valid sequence characters
 			while(scan.hasNextLine()) {
 				words = scan.nextLine().split(" ");
+				counter++;
 				
 				//validate sequence characters
 				if(!sequencePattern.matcher(words[ITEM_SEQ]).matches()) {
 					//System.out.println("Invalid sequence");
 					System.out.println("At item number: "+counter);
 					this.errorCode = ERROR_CODE_INVALID_SEQ;
+					this.errorPos = counter;
 					return this.errorCode;
 				}
 				
@@ -67,6 +69,7 @@ public class InputValidator {
 					System.out.println("At item number: "+counter);
 					this.isValid = false;
 					this.errorCode = ERROR_CODE_INVALID_INPUT;
+					this.errorPos = counter;
 					return this.errorCode;
 				}
 			}
@@ -97,18 +100,18 @@ public class InputValidator {
 		switch(this.errorCode) 
 		{
 			case ERROR_CODE_INVALID_SEQ:
-				definition = "Error code: 100 \nInvalid character in the sequence!";
+				definition = "Invalid character in the sequence!";
 				break;
 			case ERROR_CODE_INVALID_INPUT:
-				definition = "Error code: 101 \nInvalid sequence length!";
+				definition = "Invalid sequence length!";
 				break;
 			case ERROR_CODE_PARSING:
-				definition = "Error code: 102 \nParsing error!!";
+				definition = "Parsing error!";
 				break;
 			default:
 				break;
 		}
-		return definition;
+		return definition + "\nAt sequence #"+this.errorPos;
 	}
 	
 	/**
