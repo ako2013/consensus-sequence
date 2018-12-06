@@ -125,13 +125,13 @@ public class PositionWeightMatrix extends Consensus{
 
 
 		for (int i = 0; i < MAX_ROW; i++) { // max row = 4
-			if (i == 0){
+			if (i == A_ROW){
 				System.out.print("A| ");
-			} else if (i == 1){
+			} else if (i == T_ROW){
 				System.out.print("T| ");
-			} else if (i == 2) {
+			} else if (i == C_ROW) {
 				System.out.print("C| ");
-			} else {
+			} else if (i == G_ROW){
 				System.out.print("G| ");
 			}
 
@@ -167,13 +167,13 @@ public class PositionWeightMatrix extends Consensus{
 
 
 		for (int i = 0; i < MAX_ROW; i++) { // max row = 4
-			if (i == 0){
+			if (i == A_ROW){
 				s += "A| ";
-			} else if (i == 1){
+			} else if (i == T_ROW){
 				s += "T| ";
-			} else if (i == 2) {
+			} else if (i == C_ROW) {
 				s += "C| ";
-			} else {
+			} else if (i == G_ROW){
 				s += "G| ";
 			}
 

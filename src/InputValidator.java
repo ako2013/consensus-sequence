@@ -26,7 +26,6 @@ public class InputValidator {
 		this.errorCode = 0;
 		this.str = s;
 		this.isValid = false;
-		//this.validate();
 	}
 	
 	/**
@@ -64,7 +63,7 @@ public class InputValidator {
 				if(words[ITEM_SEQ].length() == len) this.isValid = true;
 				
 				else {
-					//System.out.println("Wrong length");
+					//System.out.println("Invalid length");
 					System.out.println("At item number: "+counter);
 					this.isValid = false;
 					this.errorCode = ERROR_CODE_INVALID_INPUT;
@@ -98,13 +97,13 @@ public class InputValidator {
 		switch(this.errorCode) 
 		{
 			case ERROR_CODE_INVALID_SEQ:
-				definition = "Invalid sequence";
+				definition = "Error code: 100 \nInvalid character in the sequence!";
 				break;
 			case ERROR_CODE_INVALID_INPUT:
-				definition = "Invalid input";
+				definition = "Error code: 101 \nInvalid sequence length!";
 				break;
 			case ERROR_CODE_PARSING:
-				definition = "Error parsing";
+				definition = "Error code: 102 \nParsing error!!";
 				break;
 			default:
 				break;
